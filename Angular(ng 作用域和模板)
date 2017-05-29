@@ -1,0 +1,44 @@
+html部分
+...........................................................................................................
+
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>ng 作用域和模板</title>
+</head>
+<body>
+一个基本ng模板,实现一个控制器,并将几个字段链接到作用域<br>
+提供输入值并显示结果
+<div ng-controller="SimpleTemplate">
+    输入值A: <input type="number" ng-model="valueA" /><br>
+    输入值B: <input type="number" ng-model="valueB" /><br><br>
+    操作A+B: {{valueA}} + {{valueB}}<br><br>
+    A+B结果: {{valueA + valueB}}<br><br>
+    <input type="button" ng-click="addValues(valueA, valueB)"
+           value ="点击调用addValues({{valueA}} , {{valueB}})" /><br>
+    调用后的结果值: {{valueC}}<br>
+</div>
+<script src="js/angular-1.3.0.js"></script>
+<script src="js/作业2_scope和模板.js"></script>
+</body>
+</html>
+
+...................................................................
+Js部分
+
+/**
+ * Created by Administrator on 2017/5/26/026.
+ */
+myApp=angular.module("myApp",[]);
+myApp.controller("SimpleTemplate",function ($scope) {
+    $scope.valueA=15;
+    $scope.valueB=11;
+    $scope.valueC=1;
+
+    $scope.addValues=function (valueA, valueB) {
+
+        $scope.valueC= $scope.valueA+ $scope.valueB;
+    }
+
+})
