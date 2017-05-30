@@ -44,6 +44,10 @@ html部分
 
 <!--ng-if 取消选中，并移除内容-->
 <!--ng-checked 指令用于设置复选框(checkbox)或单选按钮(radio)的 checked 属性-->
+<!--ng-style 指令为 HTML 元素添加 style 属性。-->
+<!--ng-style 属性值必须是对象，表达式返回的也是对象。-->
+<!--对象由 CSS 属性和值组成，即 key=>value 对。-->
+
 是否显示msg:
 <input type="checkbox" ng-model="checked" >
 <p ng-if="checked" ng-bind="msg"></p>
