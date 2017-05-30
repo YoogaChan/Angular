@@ -1,5 +1,4 @@
 html部分
-
 .............................................................
 
 <!doctype html>
@@ -27,9 +26,10 @@ html部分
 <script src="js/t7.js"></script>
 </body>
 </html>
-JS部分
 
 .............................................................
+JS部分
+
 
 var myApp=angular.module('myApp',[]);
 myApp.controller('myController',function ($scope) {
