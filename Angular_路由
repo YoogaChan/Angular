@@ -1,0 +1,113 @@
+html部分
+
+..................................................................
+
+<!DOCTYPE html>
+<html lang="en" ng-app="mobileStoreApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-animate.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+</head>
+<body>
+<a href="#/hello">手机首页</a><!--AngularJS 路由 就通过 # + 标记 帮助我们区分不同的逻辑页面并将不同的页面绑定到对应的控制器上。-->
+<a href="#/list">商品列表</a>
+<a href="#/userlist">客户列表</a>
+<div ng-view></div> <!--该 div 内的 HTML 内容会根据路由的变化而变化。-->
+
+</body>
+</html>
+..................................................
+js部分 
+....................
+1.app.js
+var mobileStoreApp = angular.module('mobileStoreApp',[
+    'ngRoute','ngAnimate','mobileStoreCtrls'
+    ,'mobileStoreFilters',
+    'mobileStoreServices','mobileStoreDirectives'
+]);
+//定义注册列表（可以理解为注入的模块(自定义对象)）  ngRoute 路由 ngAnimate 动画  自定义模块
+
+//模块配置
+mobileStoreApp.config(function ($routeProvider) {
+// config 函数用于配置路由规则。
+// 通过使用 configAPI，我们请求把$routeProvider注入到我们的配置函数
+// 并且使用$routeProvider.whenAPI来定义我们的路由规则。
+// $routeProvider 为我们提供了 when(path,object) & otherwise(object) 函数按顺序定义所有路由
+//函数包含两个参数:第一个参数是 URL,第二个参数是路由配置对象。
+    $routeProvider.when('/hello',{
+        templateUrl:'tpls/hello.html', //templateUrl 类似 URL  查找（html模板文件）的路径
+        controller:'HelloCtrl'         //路由配置对象
+    }).when('/list',{
+        templateUrl:'tpls/mobileList.html',
+        controller:'MobileListCtrl'
+    }).when('/userlist',{
+        templateUrl:'tpls/guestList.html',
+        controller:'MobileListCtrl'
+    }).otherwise({
+        redirectTo: '/hello‘
+       //redirectTo 重定向的地址。
+    });
+
+});
+.......................
+2.controllers.js
+var mobileStoreCtrls=angular.module('mobileStoreCtrls',[]); //定义控制器模块
+
+mobileStoreCtrls.controller("HelloCtrl",['$scope','$location',
+  function ($scope,$location) {
+      $scope.hello = {
+          text: '欢迎来到'
+      };
+      console.log($location.path());
+  }
+]);
+mobileStoreCtrls.controller("MobileListCtrl",['$scope',
+    function ($scope) {
+        $scope.mobiles = [
+            {title: '映众 GTX1070 X4冰龙超级版 ICHILL 1771/8200MHz 8GB/256Bit GDDR5 PCI-E显卡', price: '￥2999.00'},
+            {title: '华硕（ASUS）ROG STRIX-GTX1080TI-O11G-GAMING 1569-1708MHz 11G/11100MHz GDDR5X PCI-E3.0显卡', price: '￥6398.00'},
+            {title: '七彩虹(Colorful)iGame1070烈焰战神U-8GD5 Top GTX1070 1569-1759MHz/8008MHz 8G/256bit GDDR5游戏显卡', price: '￥3099.00'},
+            {title: '技嘉（GIGABYTE） GTX1070 G1 GAMING 1594-1784MHz/8008MHz 8G/256bit GDDR5显卡}', price: '￥3199.00'}
+        ];
+        $scope.users = [
+            {name: 'Inno',phone:'10086'},
+            {name: 'ASUS',phone:'10010'},
+            {name: 'colorful',phone:'10000'},
+            {name: 'GIGABYTE',phone:'12345'}
+        ];
+    }
+]);
+.......................
+3.directives.js
+var mobileStoreDirectives=angular.module("mobileStoreDirectives",[]);
+mobileStoreDirectives.directive('mobileDirective_1',['$scope',
+    function ($scope) {
+    }
+]);
+.......................
+4.filters.js
+var mobileStoreFilters=angular.module('mobileStoreFilters',[]);
+mobileStoreFilters.filter("mobileStore_1",['$scope',
+ function ($scope) {
+
+ }
+
+])
+.......................
+5.servers.js
+var mobileStoreServices=angular.module('mobileStoreServices',[]);
+mobileStoreServices.server("'mobileStoreService_1",function ($scope) {
+
+});
+.......................
+6.angular.js
+7.angular-animate.js
+8.angular-route.js
