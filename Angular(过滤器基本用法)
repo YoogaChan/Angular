@@ -1,0 +1,40 @@
+html部分
+
+.............................................................
+
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Filters</title>
+</head>
+<body>
+<div ng-controller="myController">
+    <h2>过滤器基本用法</h2>
+
+    数字：{{123.456789|number:3}}<br><!-- 保留小数点后3位-->
+    货币：{{123.456789|currency:"$"}}<br><!--加上$符号-->
+    日期：{{currentDate | date:'yyyy-MM-dd HH:mm:ss Z'}}<!--获取当前的日期时间及其时区--><br>
+
+    JSON:{{JSONObj | json}}<br><!--转换成json数据结构-->
+    Limit Array:{{days|limitTo:3}}<br>  <!--取得数组的前三个数组项目-->
+    Limit String：{{word | limitTo:9}}<br><!--取得字符串的前9个字符-->
+    Uppercase：{{word|uppercase|limitTo:9}}<br><!--取得字符串的前9个字符，并将其大写输出-->
+    Lowercase：{{word|lowercase|limitTo:9}}<!--取得字符串的前9个字符，并将其小写输出-->
+
+</div>
+<script src="js/angular-1.3.0.js"></script>
+<script src="js/t7.js"></script>
+</body>
+</html>
+JS部分
+
+.............................................................
+
+var myApp=angular.module('myApp',[]);
+myApp.controller('myController',function ($scope) {
+    $scope.currentDate=new Date();
+    $scope.JSONObj={title:'hahhahaha'};
+    $scope.days=['Mon','Tue','Wed','Thr','Fri','Sat','Sun'];
+    $scope.word='addsAdGaDADFAsDfdsafdsafasdf';
+})
