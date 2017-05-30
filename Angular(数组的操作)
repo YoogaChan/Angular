@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Expressions</title>
+    <style>
+        a{color: blue; text-decoration: underline; cursor: pointer}
+    </style>
+
+</head>
+<body>
+<div ng-controller="myController">
+    1.表达式与作用域交互<br>
+    {{speed}} {{vehicle}}<hr>
+
+    2.访问作用域中的变量:<br>
+    {{speed + ' ' + vehicle}}<hr>
+
+    3.调用作用域中的函数:<br>
+    {{lower(speed)}} {{upper('Jeep')}}<hr>
+
+    <a ng-click="setValues('Fast', newVehicle)">
+        Click to change to Fast {{newVehicle}}</a><hr>
+    <a ng-click="setValues(newSpeed, 'Rocket')">
+        Click to change to {{newSpeed}} Rocket</a><hr>
+    <a ng-click="vehicle='Car'">
+        Click to change the vehicle to a Car</a><hr>
+    <a ng-click="vehicle='Enhanced' + vehicle">
+        Click to Enhance Vehicle</a><hr>
+</div>
+<script src="js/angular-1.3.0.js"></script>
+<script src="js/day2_text8.js"></script>
+</body>
+</html>
+..................................
+js部分
+
+angular.module('myApp', [])
+    .controller('myController', function($scope) {
+        $scope.speed = 'Slow';
+        $scope.vehicle = 'Train';
+        $scope.newSpeed = 'Hypersonic';
+        $scope.newVehicle = 'Plane';
+        $scope.upper=function(aString){
+            return angular.uppercase(aString);
+        };
+        $scope.lower = function(aString){
+            return angular.lowercase(aString);
+        };
+        $scope.setValues = function(speed, vehicle){
+            $scope.speed = speed;
+            $scope.vehicle = vehicle;
+        };
+    });
